@@ -1,0 +1,24 @@
+{
+  "name" : "flux711/rhea-report",
+  "description" : "Generate report pdfs for rhea test runs.",
+  "type": "yii2-extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Frederik Lux",
+      "email": "f.lux@phytec.de"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.0",
+    "yiisoft/yii2": ">=2.0.4",
+    "xemlock/php-latex": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "flux711\\report\\": ""
+    }
+  }
+
+}
