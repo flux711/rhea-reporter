@@ -1,6 +1,6 @@
 <?php
 
-namespace rhea\report\models;
+namespace rhea\report;
 
 class Module
 {

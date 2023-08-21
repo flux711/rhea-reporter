@@ -1,5 +1,5 @@
 {
-  "name": "phytec/rhea-report",
+  "name": "phytec/rhea-reports",
   "description": "Generate report pdfs for rhea test runs.",
   "type": "yii2-extension",
   "license": "BSD-2-Clause",

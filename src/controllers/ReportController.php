@@ -4,7 +4,7 @@ namespace rhea\report\controllers;
 
 use PhpLatex_Parser;
 use PhpLatex_Renderer_Html;
-use rhea\report\models\Report;
+use rhea\report\Report;
 use Yii;
 use yii\rest\Controller;
 use yii\web\Response;
@@ -22,11 +22,25 @@ class ReportController extends Controller
 		Yii::$app->response->format = Response::FORMAT_HTML;
 		$request = Yii::$app->request;
 
-		$latex = Report::add_first_page();
+		$latexContent = Report::getReport();
+
+		$latexFilePath = '/opt/packages/rhea-packages/rhea-reporter/tmp/file.tex';
+		file_put_contents($latexFilePath, $latexContent);
+
+		$command = "pdflatex -output-directory /opt/packages/rhea-packages/rhea-reporter/tmp $latexFilePath";
+		shell_exec($command);
+
+		$pdfFilePath = '/opt/packages/rhea-packages/rhea-reporter/tmp/file.pdf';
+		header('Content-Type: application/pdf');
+		header('Content-Disposition: attachment; filename="downloaded_file.pdf"');
+		readfile($pdfFilePath);
+
+		unlink($latexFilePath);
+		unlink($pdfFilePath);
 
 		$parser = new PhpLatex_Parser();
 		$parsedTree = $parser->parse(
-			$latex
+			$latexContent
 		);
 
 		// render parsed LaTeX code to HTML
