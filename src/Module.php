@@ -7,12 +7,12 @@ use yii\base\BootstrapInterface;
 
 class Module extends \yii\base\Module implements BootstrapInterface
 {
-	public $controllerNamespace = 'report\commands';
+	public $controllerNamespace = 'report\src\controllers';
 
 	public function init()
 	{
 		parent::init();
-		Yii::setAlias('@report_images', __DIR__ . '/report_images');
+		Yii::setAlias('@report_images', __DIR__ . '/images');
 		Yii::setAlias('@report_reports', __DIR__ . '/reports');
 	}
 
@@ -20,12 +20,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
 	{
 		$app->getUrlManager()->addRules([
 			[
-				'pattern' => 'report',
-				'route' => 'report/view'
-			],
-			[
-				'pattern' => 'report/<productioncode:[0-9]*>/create',
-				'route' => 'report/view'
+				'class' => 'yii\rest\UrlRule',
+				'pluralize' => false,
+				'prefix' => 'api/',
+				'controller' => [$this->id.'/report'],
+				'tokens' => [
+					'{productioncode}' => '<productioncode:[\\w\\-\\.]+>',
+					'{serialnumber}' => '<serialnumber:[\\w\\-\\.]+>'
+				],
+				'extraPatterns' => [
+					'GET,POST {productioncode}/create' => 'create',
+					'GET,POST {serialnumber}/create' => 'create',
+				],
+				'except' => ['update', 'index', 'delete', 'view'],
 			],
 		]);
 	}

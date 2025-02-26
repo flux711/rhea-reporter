@@ -60,7 +60,7 @@ class ReportModel extends Model
 		];
 
 		// Ziel-Dateiname
-		$outputFilename = Yii::getAlias('@report_reports/test_report.pdf');
+		$outputFilename = 'test_report.pdf';
 
 		// Bericht generieren
 		$report = new Report();

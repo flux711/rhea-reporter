@@ -10,7 +10,7 @@ use yii\web\Response;
 
 class DefaultController extends Controller
 {
-	public function actionView()
+	public function actionIndex()
 	{
 		Yii::$app->response->format = Response::FORMAT_HTML;
 		$request = Yii::$app->request;
@@ -29,7 +29,9 @@ class DefaultController extends Controller
 			}
 		}
 
-		return $this->render('view');
+		return $this->render('view', [
+			"model" => $model
+		]);
 	}
 
 }

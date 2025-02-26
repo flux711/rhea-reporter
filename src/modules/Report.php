@@ -32,8 +32,8 @@ class Report
 		// Test-Ergebnisse mit Schritten
 		$this->addTestsWithResults($pdf, $data['run']);
 
-		// Speichert die PDF-Datei
-		$pdf->Output('F', $outputFilename);
+		// Download der PDF-Datei
+		$pdf->Output('D', $outputFilename);
 	}
 
 	private function addFirstPage(&$pdf)
