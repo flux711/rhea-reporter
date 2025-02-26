@@ -1,8 +1,8 @@
 {
-  "name" : "flux711/rhea-report",
-  "description" : "Generate report pdfs for rhea test runs.",
+  "name": "phytec/rhea-reports",
+  "description": "Generate report pdfs for rhea test runs.",
   "type": "yii2-extension",
-  "license": "MIT",
+  "license": "BSD-2-Clause",
   "authors": [
     {
       "name": "Frederik Lux",
@@ -13,12 +13,21 @@
   "require": {
     "php": ">=7.0",
     "yiisoft/yii2": ">=2.0.4",
-    "xemlock/php-latex": "dev-master"
+    "setasign/fpdf": "^1.8.6"
   },
-  "autoload": {
-    "psr-4": {
-      "flux711\\report\\": ""
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
     }
-  }
-
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
 }
