@@ -19,7 +19,7 @@ $this->title = "Create Report";
 <div class="container">
 	<div class="col-lg-6 col-lg-offset-3">
 		<p>Create a PDF report.</p>
-		<?= $form->field($model, 'productioncode') ?>
+		<?= $form->field($model, 'serial_number') ?>
 		<div class="form-group">
 			<?= Html::submitButton('Generate', ['class' => 'btn btn-primary']) ?>
 		</div>

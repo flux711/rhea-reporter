@@ -2,69 +2,27 @@
 
 namespace report\src\modules;
 
-use api\modules\rhea\models\ProductionCode;
+use api\modules\rhea\models\SerialNumber;
 use Yii;
 use yii\base\Model;
 
 class ReportModel extends Model
 {
-	public $productioncode;
-
-	public function attributeLabels()
-	{
-		return array_merge(parent::attributeLabels(), [
-			'productioncode' => 'Production code',
-		]);
-	}
+	public $serial_number;
 
 	public function rules()
 	{
 		return [
-			['productioncode', 'required'],
-			['productioncode', 'string'],
-			['produtioncode', 'exist', 'targetClass' => ProductionCode::class]
+			['serial_number', 'required'],
+			['serial_number', 'string'],
+			['serial_number', 'trim'],
+			['serial_number', 'exist', 'targetClass' => SerialNumber::class]
 		];
 	}
 
-	public function verify()
+	public function create()
 	{
-		if (!$this->validate()) {
-			foreach($this->firstErrors as $error) {
-				return $error;
-			}
-		}
-		return null;
-	}
-
-	public function createReport()
-	{
-		$data = [
-			'run' => [
-				'status' => 'passed',
-				'steps' => [
-					[
-						'test_name' => 'Test Step 1',
-						'status' => 'passed',
-						'duration' => 1.25,
-						'run_id' => '12345'
-					],
-					[
-						'test_name' => 'Test Step 2',
-						'status' => 'failed',
-						'duration' => 2.50
-					],
-				],
-				'run_type' => 'Regression'
-			],
-			'version' => ['version' => '1.0.0']
-		];
-
-		// Ziel-Dateiname
-		$outputFilename = 'test_report.pdf';
-
-		// Bericht generieren
-		$report = new Report();
-		$report->generate($data, $outputFilename);
+		return Yii::$app->getResponse()->redirect("localhost:9080/report/$this->serial_number");
 	}
 
 }

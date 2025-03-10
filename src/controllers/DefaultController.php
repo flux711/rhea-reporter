@@ -15,22 +15,17 @@ class DefaultController extends Controller
 		Yii::$app->response->format = Response::FORMAT_HTML;
 		$request = Yii::$app->request;
 
-		$model = new ReportModel();
-		if ($model->load($request->post())) {
-			$verification = $model->verify();
-			if ($verification) {
-				Yii::$app->session->setFlash('error', $verification);
-			} else {
-				try {
-					$model->createReport();
-				} catch (Exception $e) {
-					Yii::$app->session->setFlash('error', $e->getMessage());
-				}
+		$report = new ReportModel();
+		if ($report->load($request->post()) && $report->validate()) {
+			try {
+				$report->create();
+			} catch (Exception $e) {
+				Yii::$app->session->setFlash('error', $e->getMessage());
 			}
 		}
 
 		return $this->render('view', [
-			"model" => $model
+			"report" => $report
 		]);
 	}
 
