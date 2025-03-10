@@ -6,6 +6,7 @@ use api\modules\rhea\models\SerialNumber;
 use http\Client\Response;
 use Yii;
 use yii\base\Model;
+use yii\httpclient\Client;
 use yii\web\BadRequestHttpException;
 
 class ReportModel extends Model
