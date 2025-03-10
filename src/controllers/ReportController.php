@@ -2,6 +2,7 @@
 
 namespace report\src\controllers;
 
+use api\modules\rhea\models\SerialNumber;
 use report\src\modules\ReportModel;
 use Yii;
 use yii\rest\Controller;
@@ -33,8 +34,12 @@ class ReportController extends Controller
 		// Bericht generieren
 		$report = new ReportModel();
 		$report->load(["serial_number" => $request->post('serial_number')], "");
-		if ($report->verify()) {
-			$report->create();
+		if ($report->validate()) {
+			return $report->create();
+		}
+
+		foreach ($report->firstErrors as $error) {
+			throw new BadRequestHttpException($error);
 		}
 	}
 }

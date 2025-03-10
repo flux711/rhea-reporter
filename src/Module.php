@@ -12,8 +12,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
 	public function init()
 	{
 		parent::init();
-		Yii::setAlias('@report_images', __DIR__ . '/images');
-		Yii::setAlias('@report_reports', __DIR__ . '/reports');
 	}
 
 	public function bootstrap($app)
@@ -25,14 +23,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
 				'prefix' => 'api/',
 				'controller' => [$this->id.'/report'],
 				'tokens' => [
-					'{productioncode}' => '<productioncode:[\\w\\-\\.]+>',
-					'{serialnumber}' => '<serialnumber:[\\w\\-\\.]+>'
+					'{serial_number}' => '<serial_number:[\\w\\-\\.]+>'
 				],
 				'extraPatterns' => [
-					'GET,POST {productioncode}/create' => 'create',
-					'GET,POST {serialnumber}/create' => 'create',
+					'POST,HEAD {serial_number}/create' => 'create-report',
 				],
-				'except' => ['update', 'index', 'delete', 'view'],
+				'except' => ['update', 'delete', 'view', 'index', 'create'],
 			],
 		]);
 	}
